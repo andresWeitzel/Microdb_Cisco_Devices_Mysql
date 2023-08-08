@@ -64,19 +64,6 @@ alter table rate_plans
 add constraint CHECK_rate_plans_update_date
 check (update_date >= creation_date);
 
--- ---------------------------------------------------------------------------
--- ---------------------------------------------------------------------------
-
-
--- ---------------------------------------------------------------------------
--- ---------------------------------------------------------------------------
-
--- ======= Tabla rate_plans ===========
-
--- https://developer.cisco.com/docs/control-center/#!get-rate-plans/response-example
-create table communication_plans(
-id int auto_increment primary key
-);
 
 
 -- ---------------------------------------------------------------------------
@@ -100,7 +87,6 @@ status enum('ACTIVATION_READY'
 , 'RETIRED'
 , 'TEST_READY') default 'ACTIVATION_READY',
 rate_plan_id int default null,
-communication_plan_id int default null,
 creation_date datetime not null,
 update_date datetime not null
 
@@ -120,12 +106,6 @@ foreign key(rate_plan_id)
 references rate_plans(id)
 ON DELETE CASCADE;
 
--- FK communication_plan_id
-alter table devices 
-add constraint FK_devices_communication_plan_id_id
-foreign key(communication_plan_id)
-references communication_plans(id)
-ON DELETE CASCADE;
 
 -- CHECK UPDATE_DATE
 alter table devices
