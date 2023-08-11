@@ -15,7 +15,6 @@ use microdb_cisco_devices;
 
 -- TABLES
 drop table if exists rate_plans;
-drop table if exists communication_plans;
 drop table if exists devices;
 drop table if exists devices_details;
 drop table if exists device_audit_history;
@@ -38,7 +37,7 @@ version_id int not null,
 version_plan varchar(20) default '1.1',
 status enum('Published'
 ,'Active'
-,'Inactive'),
+,'Inactive') default 'ACTIVE',
 type_plan varchar(200) not null,
 subscription_charge decimal(6,3) default 2.99,
 number_of_tiers int default 1,
@@ -81,7 +80,7 @@ iccid varchar(50) not null,
 status enum('ACTIVATION_READY'
 , 'REPLACED'
 , 'ACTIVATED'
-, 'DEACTIVATED'
+, 'DESACTIVATED'
 , 'INVENTORY'
 , 'PURGED'
 , 'RETIRED'
@@ -131,7 +130,7 @@ date_activated datetime not null,
 date_added datetime not null,
 date_updated datetime not null,
 fixed_ip_adress varchar(50) default null,
-fixed_ipv6_adress varchar(50) default null,
+fixed_ipv6_adress varchar(255) default null,
 sim_notes varchar(200) default null,
 device_mac varchar(255) default null,
 creation_date datetime not null,
