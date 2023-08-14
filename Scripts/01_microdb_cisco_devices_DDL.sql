@@ -103,7 +103,7 @@ alter table devices
 add constraint FK_devices_rate_plan_id
 foreign key(rate_plan_id)
 references rate_plans(id)
-ON DELETE CASCADE;
+on update cascade on delete cascade;
 
 
 -- CHECK UPDATE_DATE
@@ -150,7 +150,7 @@ alter table devices_details
 add constraint FK_devices_details_device_id
 foreign key(device_id)
 references devices(id)
-ON DELETE CASCADE;
+on update cascade on delete cascade;
 
 -- CHECK UPDATE_DATE
 alter table devices
