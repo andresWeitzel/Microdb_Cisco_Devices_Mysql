@@ -159,3 +159,50 @@ check (update_date >= creation_date);
 
 -- ---------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------
+
+
+-- ======= Tabla devices_audit_history ===========
+
+-- https://developer.cisco.com/docs/control-center/#!get-device-audit-history/get-device-audit-history
+create table devices_audit_history(
+	
+id int auto_increment primary key,
+devices_details_id int not null,
+description varchar(255),-- The audit will be carried out to verify the configured software
+status enum('PENDING'
+, 'AUDITED'
+, 'CACELLED'
+, 'FOR_REVISION') default 'PENDING',
+notification_date datetime not null,
+audit_date datetime not null,
+creation_date datetime not null,
+update_date datetime not null
+
+);
+
+-- ======= Restricciones Tabla devices_audit_history ===========
+
+-- UNIQUE ID
+alter table devices_audit_history 
+add constraint UNIQUE_devices_audit_history_id
+unique(id);
+
+-- FK devices_details_id
+alter table devices_audit_history 
+add constraint FK_devices_audit_history_devices_details_id
+foreign key(devices_details_id)
+references devices_details(id)
+on update cascade on delete cascade;
+
+-- CHECK AUDIT_DATE
+alter table devices_audit_history
+add constraint CHECK_devices_audit_history_audit_date
+check (audit_date >= notification_date);
+
+-- CHECK UPDATE_DATE
+alter table devices_audit_history
+add constraint CHECK_devices_audit_history_update_date
+check (update_date >= creation_date);
+
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------

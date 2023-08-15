@@ -3,5 +3,6 @@ Micro Base de Datos para el manejo de dispositivos cisco ejemplificando parte de
 * Api Rest Documentation Cisco
 	* [Devices](https://developer.cisco.com/docs/control-center/#!devices)
 	* [Rate Plans](https://developer.cisco.com/docs/control-center/#!get-rate-plans/response-example)
-	* [Status Devices](https://pubhub.devnetcloud.com/media/control-center-sandbox/docs/Content/api/rest/get_started_rest.htm#api_sim_status) 
+	* [Status Devices](https://pubhub.devnetcloud.com/media/control-center-sandbox/docs/Content/api/rest/get_started_rest.htm#api_sim_status)
+	* [Device Audit History](https://developer.cisco.com/docs/control-center/#!get-device-audit-history/get-device-audit-history)
 	

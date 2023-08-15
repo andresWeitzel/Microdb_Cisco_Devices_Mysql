@@ -11,28 +11,24 @@ use microdb_cisco_devices;
 
 
 -- TABLES
+delete from devices_audit_history;
 delete from devices_details;
 delete from devices;
 delete from rate_plans;
 
 
 -- AUTO_INCREMENT
+alter table devices_audit_history auto_increment 1;
 alter table devices_details auto_increment 1;
 alter table devices auto_increment 1;
 alter table rate_plans auto_increment 1;
 
 
-
-/*
-delete from device_audit_history;
-delete from device_usage;
-delete from device_usage_by_zone;
-*/
-
 -- VARS
 SET @created_at = now();
 SET @updated_at = now();
 set @today = now();
+set @audit_at = now() + interval 3 month;
 
 
 
@@ -143,6 +139,40 @@ select * from devices_details;
 
 
 
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
+
+
+-- ======= Tabla devices_audit_history ===========
+
+insert into devices_audit_history (devices_details_id, description, status 
+, notification_date, audit_date, creation_date, update_date ) values
+(1, 'The audit will be carried out to verify the configured software', 
+'PENDING', @today, @audit_at, @created_at, @updated_at),
+(2, 'The audit will be carried out to verify the operation of the hardware', 
+'PENDING', @today, @audit_at, @created_at, @updated_at),
+(3, 'The audit will be carried out to verify the configured software', 
+'FOR_REVISION', @today, @audit_at, @created_at, @updated_at),
+(4, 'Software updates will be released', 
+'PENDING', @today, @audit_at, @created_at, @updated_at),
+(5, 'The audit will be carried out to verify the configured software', 
+'PENDING', @today, @audit_at, @created_at, @updated_at),
+(6, 'The audit will be carried out to verify the operation of the hardware', 
+'FOR_REVISION', @today, @audit_at, @created_at, @updated_at),
+(7, 'The audit will be carried out to verify the configured software', 
+'PENDING', @today, @audit_at, @created_at, @updated_at),
+(8, 'The audit will be carried out to verify the configured software', 
+'FOR_REVISION', @today, @audit_at, @created_at, @updated_at),
+(9, 'The new improvement implemented will be analyzed', 
+'PENDING', @today, @audit_at, @created_at, @updated_at),
+(10, 'The new installed version will be analyzed', 
+'PENDING', @today, @audit_at, @created_at, @updated_at);
+
+select * from devices_audit_history;
+
+
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
 
 
 
