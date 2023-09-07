@@ -11,6 +11,7 @@ use microdb_cisco_devices;
 
 
 -- TABLES
+DELETE FROM devices_usage;
 delete from devices_audit_history;
 delete from devices_details;
 delete from devices;
@@ -18,6 +19,7 @@ delete from rate_plans;
 
 
 -- AUTO_INCREMENT
+alter table devices_usage auto_increment 1;
 alter table devices_audit_history auto_increment 1;
 alter table devices_details auto_increment 1;
 alter table devices auto_increment 1;
@@ -175,8 +177,25 @@ select * from devices_audit_history;
 -- ---------------------------------------------------------------------------
 
 
+-- ======= Tabla devices_usage ===========
+
+INSERT INTO devices_usage ( devices_details_id, ctd_data_usage, ctd_sms_usage
+, ctd_voice_usage, ctd_session_count, overage_limit_reached, overage_limit_override
+, creation_date , update_date ) VALUES
+(1, 1034, 200, 4000, 10, 'FALSE', 'DEFAULT', @created_at, @updated_at),
+(2, 6078, 456, 6000, 34, 'TRUE','TEMPORARY_OVERRIDE', @created_at, @updated_at),
+(3, 30098, 1056, 40000, 104, 'TRUE','PERMANENT_OVERRIDE', @created_at, @updated_at),
+(4, 46990, 2768, 58900, 209, 'TRUE','PERMANENT_OVERRIDE', @created_at, @updated_at),
+(5, 2074, 160, 5060, 45, 'FALSE', 'DEFAULT', @created_at, @updated_at),
+(6, 7044, 250, 8092, 58, 'FALSE', 'DEFAULT', @created_at, @updated_at),
+(7, 1034, 255, 1020, 79, 'TRUE','TEMPORARY_OVERRIDE', @created_at, @updated_at),
+(8, 9872, 872, 2220, 108, 'TRUE','TEMPORARY_OVERRIDE', @created_at, @updated_at),
+(9, 2245, 347, 1098, 65, 'TRUE','PERMANENT_OVERRIDE', @created_at, @updated_at),
+(6, 5567, 187, 6712, 46, 'FALSE', 'DEFAULT', @created_at, @updated_at);
 
 
+
+select * from devices_usage;
 
 
 

@@ -17,9 +17,9 @@ use microdb_cisco_devices;
 drop table if exists rate_plans;
 drop table if exists devices;
 drop table if exists devices_details;
-drop table if exists device_audit_history;
-drop table if exists device_usage;
-drop table if exists device_usage_by_zone;
+drop table if exists devices_audit_history;
+drop table if exists devices_usage;
+drop table if exists devices_usage_by_zone;
 
 
 -- ---------------------------------------------------------------------------
@@ -30,7 +30,7 @@ drop table if exists device_usage_by_zone;
 -- https://developer.cisco.com/docs/control-center/#!get-rate-plans/response-example
 create table rate_plans(
 	
-id int auto_increment primary key,
+id bigint auto_increment primary key,
 name varchar(200) not null,
 description varchar(500) not null,
 version_id int not null,
@@ -74,7 +74,7 @@ check (update_date >= creation_date);
 
 create table devices(
 	
-id int auto_increment primary key,
+id bigint auto_increment primary key,
 iccid varchar(50) not null,
 -- https://pubhub.devnetcloud.com/media/control-center-sandbox/docs/Content/api/rest/get_started_rest.htm#api_sim_status
 status enum('ACTIVATION_READY'
@@ -85,7 +85,7 @@ status enum('ACTIVATION_READY'
 , 'PURGED'
 , 'RETIRED'
 , 'TEST_READY') default 'ACTIVATION_READY',
-rate_plan_id int default null,
+rate_plan_id bigint default null,
 creation_date datetime not null,
 update_date datetime not null
 
@@ -121,8 +121,8 @@ check (update_date >= creation_date);
 -- https://developer.cisco.com/docs/control-center/#!get-device-details/response-example
 create table devices_details(
 	
-id int auto_increment primary key,
-device_id int not null,
+id bigint auto_increment primary key,
+device_id bigint not null,
 imsi varchar(50) not null,
 msisdn varchar(50) not null,
 imei varchar(50) not null,
@@ -166,8 +166,8 @@ check (update_date >= creation_date);
 -- https://developer.cisco.com/docs/control-center/#!get-device-audit-history/get-device-audit-history
 create table devices_audit_history(
 	
-id int auto_increment primary key,
-devices_details_id int not null,
+id bigint auto_increment primary key,
+devices_details_id bigint not null,
 description varchar(255),-- The audit will be carried out to verify the configured software
 status enum('PENDING'
 , 'AUDITED'
@@ -206,3 +206,58 @@ check (update_date >= creation_date);
 
 -- ---------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------
+
+
+-- ======= Tabla device_usage ===========
+
+-- https://developer.cisco.com/docs/control-center/#!get-device-usage/response-example
+
+
+CREATE TABLE devices_usage(
+
+id bigint auto_increment PRIMARY KEY,
+devices_details_id bigint not null,
+ctd_data_usage int DEFAULT 0,
+ctd_sms_usage int DEFAULT 0,
+ctd_voice_usage int DEFAULT 0,
+ctd_session_count int DEFAULT 0,
+overage_limit_reached enum('TRUE','FALSE') DEFAULT 'FALSE',
+overage_limit_override enum('DEFAULT','TEMPORARY_OVERRIDE'
+,'PERMANENT_OVERRIDE') DEFAULT 'DEFAULT',
+creation_date datetime not null,
+update_date datetime not null
+
+);
+
+-- ======= Restricciones Tabla device_usage ===========
+
+-- UNIQUE ID
+alter table devices_usage 
+add constraint UNIQUE_device_usage_id
+unique(id);
+
+-- FK devices_details_id
+alter table devices_usage 
+add constraint FK_device_usage_devices_details_id
+foreign key(devices_details_id)
+references devices_details(id)
+on update cascade on delete cascade;
+
+
+-- CHECK ctf fieds
+ALTER TABLE devices_usage
+ADD CONSTRAINT CHECK_devices_usage_ctd
+CHECK (ctd_data_usage >= 0 AND ctd_sms_usage >= 0 
+AND ctd_voice_usage >= 0 AND ctd_session_count >= 0);
+
+
+-- CHECK UPDATE_DATE
+alter table devices_usage
+add constraint CHECK_devices_usage_update_date
+check (update_date >= creation_date);
+
+
+
+
+
+

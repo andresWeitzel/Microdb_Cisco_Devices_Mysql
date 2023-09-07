@@ -1,1 +1,1 @@
-{"resources":{"Scripts/Script-1.sql":{"default-datasource":"mysql8-189c2169118-7301c3b0835032c"},"Scripts/Script.sql":{"default-datasource":"mysql8-189c2169118-7301c3b0835032c"}}}
+{"resources":{"Scripts/01_microdb_cisco_devices_DDL.sql":{"default-datasource":"mysql8-189c2169118-7301c3b0835032c","default-catalog":"microdb_cisco_devices"},"Scripts/02_microdb_cisco_devices_DML_INSERTS.sql":{"default-datasource":"mysql8-189c2169118-7301c3b0835032c","default-catalog":"microdb_cisco_devices"}}}
