@@ -11,6 +11,7 @@ use microdb_cisco_devices;
 
 
 -- TABLES
+DELETE FROM devices_cycle_usage_by_zone;
 DELETE FROM devices_usage;
 delete from devices_audit_history;
 delete from devices_details;
@@ -19,6 +20,7 @@ delete from rate_plans;
 
 
 -- AUTO_INCREMENT
+alter table devices_cycle_usage_by_zone auto_increment 1;
 alter table devices_usage auto_increment 1;
 alter table devices_audit_history auto_increment 1;
 alter table devices_details auto_increment 1;
@@ -191,12 +193,45 @@ INSERT INTO devices_usage ( devices_details_id, ctd_data_usage, ctd_sms_usage
 (7, 1034, 255, 1020, 79, 'TRUE','TEMPORARY_OVERRIDE', @created_at, @updated_at),
 (8, 9872, 872, 2220, 108, 'TRUE','TEMPORARY_OVERRIDE', @created_at, @updated_at),
 (9, 2245, 347, 1098, 65, 'TRUE','PERMANENT_OVERRIDE', @created_at, @updated_at),
-(6, 5567, 187, 6712, 46, 'FALSE', 'DEFAULT', @created_at, @updated_at);
+(6, 5567, 187, 6712, 46, 'FALSE', 'DEFAULT', @created_at, @updated_at),
+(7, 7845, 267, 1089, 78, 'TRUE', 'PERMANENT_OVERRIDE', @created_at, @updated_at),
+(8, 56789, 3456, 67839, 290, 'FALSE', 'DEFAULT', @created_at, @updated_at),
+(9, 3678, 151, 887, 59, 'TRUE','TEMPORARY_OVERRIDE', @created_at, @updated_at),
+(10, 7763, 229, 1029, 41, 'TRUE','TEMPORARY_OVERRIDE', @created_at, @updated_at);
 
 
 
 select * from devices_usage;
 
 
+/*
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
 
 
+-- ======= Tabla devices_cycle_usage_by_zone ===========
+
+insert into devices_cycle_usage_by_zone ( devices_details_id , zone_cycle,
+data_usage, data_usage_unit, voice_mtu_usage, voice_mtu_usage_unit,
+voice_mou_usage, voice_mou_usage_unit, sms_mtu_usage, sms_mou_usage
+, creation_date, update_date ) values
+(1 , ),
+(),
+();
+
+
+/*
+ * id bigint auto_increment PRIMARY KEY,
+devices_details_id bigint not null,
+zone_cycle varchar(255) not null,
+data_usage varchar(255) not null,
+data_usage_unit varchar(255) not null,
+voice_mtu_usage varchar(255) not null,
+voice_mtu_usage_unit varchar(255) not null,
+voice_mou_usage varchar(255) not null,
+voice_mou_usage_unit varchar(255) not null,
+sms_mtu_usage varchar(255) not null,
+sms_mou_usage varchar(255) not null,
+creation_date datetime not null,
+update_date datetime not null
+*/

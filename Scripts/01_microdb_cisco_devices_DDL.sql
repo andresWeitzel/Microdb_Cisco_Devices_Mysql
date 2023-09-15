@@ -19,6 +19,7 @@ drop table if exists devices;
 drop table if exists devices_details;
 drop table if exists devices_audit_history;
 drop table if exists devices_usage;
+drop table if exists devices_cycle_usage_by_zone;
 drop table if exists devices_usage_by_zone;
 
 
@@ -258,6 +259,106 @@ check (update_date >= creation_date);
 
 
 
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
 
 
+-- ======= Tabla devices_cycle_usage_by_zone ===========
+
+-- https://developer.cisco.com/docs/control-center/#!get-device-usage-by-zone
+
+
+CREATE TABLE devices_cycle_usage_by_zone(
+
+id bigint auto_increment PRIMARY KEY,
+devices_details_id bigint not null,
+zone_cycle varchar(255) not null,
+data_usage varchar(255) not null,
+data_usage_unit varchar(255) not null,
+voice_mtu_usage varchar(255) not null,
+voice_mtu_usage_unit varchar(255) not null,
+voice_mou_usage varchar(255) not null,
+voice_mou_usage_unit varchar(255) not null,
+sms_mtu_usage varchar(255) not null,
+sms_mou_usage varchar(255) not null,
+creation_date datetime not null,
+update_date datetime not null
+
+);
+
+-- ======= Restricciones Tabla devices_cycle_usage_by_zone ===========
+
+-- UNIQUE ID
+alter table devices_cycle_usage_by_zone 
+add constraint UNIQUE_devices_cycle_usage_by_zone_id
+unique(id);
+
+-- FK devices_details_id
+alter table devices_cycle_usage_by_zone 
+add constraint FK_devices_cycle_usage_by_zone_devices_details_id
+foreign key(devices_details_id)
+references devices_details(id)
+on update cascade on delete cascade;
+
+
+-- CHECK UPDATE_DATE
+alter table devices_cycle_usage_by_zone
+add constraint CHECK_devices_cycle_usage_by_zone_update_date
+check (update_date >= creation_date);
+
+/*
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
+
+
+-- ======= Tabla devices_usage_by_zone ===========
+
+-- https://developer.cisco.com/docs/control-center/#!get-device-usage-by-zone
+
+
+CREATE TABLE devices_usage_by_zone(
+
+id bigint auto_increment PRIMARY KEY,
+devices_details_id bigint not null,
+ctd_data_usage int DEFAULT 0,
+ctd_sms_usage int DEFAULT 0,
+ctd_voice_usage int DEFAULT 0,
+ctd_session_count int DEFAULT 0,
+overage_limit_reached enum('TRUE','FALSE') DEFAULT 'FALSE',
+overage_limit_override enum('DEFAULT','TEMPORARY_OVERRIDE'
+,'PERMANENT_OVERRIDE') DEFAULT 'DEFAULT',
+creation_date datetime not null,
+update_date datetime not null
+
+);
+
+-- ======= Restricciones Tabla device_usage ===========
+
+-- UNIQUE ID
+alter table devices_usage 
+add constraint UNIQUE_device_usage_id
+unique(id);
+
+-- FK devices_details_id
+alter table devices_usage 
+add constraint FK_device_usage_devices_details_id
+foreign key(devices_details_id)
+references devices_details(id)
+on update cascade on delete cascade;
+
+
+-- CHECK ctf fieds
+ALTER TABLE devices_usage
+ADD CONSTRAINT CHECK_devices_usage_ctd
+CHECK (ctd_data_usage >= 0 AND ctd_sms_usage >= 0 
+AND ctd_voice_usage >= 0 AND ctd_session_count >= 0);
+
+
+-- CHECK UPDATE_DATE
+alter table devices_usage
+add constraint CHECK_devices_usage_update_date
+check (update_date >= creation_date);
+
+
+*/
 
