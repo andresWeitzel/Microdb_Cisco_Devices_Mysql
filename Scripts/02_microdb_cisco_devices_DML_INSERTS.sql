@@ -62,7 +62,7 @@ insert into rate_plans (name, description, version_id
 ,'Individual quarterly plan', 2.1, 1, @created_at, @updated_at),
 ('IOU-89','plan every three months, up to 5 people',777892,'2.5','Active'
 ,'quarterly plan, up to 5 people', 3.89, 3, @created_at, @updated_at),
-('IOU-90','plan every three months, up to 7 people',777213,'2.6','Inactive'
+('IOU-90','plan every three months, up to 7 people',777245,'2.6','Inactive'
 ,'quarterly plan, up to 7 people', 3.99, 4, @created_at, @updated_at);
 
 select * from rate_plans;
@@ -88,12 +88,6 @@ insert into devices (iccid, status, rate_plan_id, creation_date, update_date) va
 
 select * from devices;
 
-
--- ---------------------------------------------------------------------------
--- ---------------------------------------------------------------------------
-
-
--- ======= Tabla devices_details ===========
 
 insert into devices_details(device_id, imsi, msisdn, imei, date_activated
 , date_added, date_updated, fixed_ip_adress, fixed_ipv6_adress, sim_notes
@@ -204,34 +198,30 @@ INSERT INTO devices_usage ( devices_details_id, ctd_data_usage, ctd_sms_usage
 select * from devices_usage;
 
 
-/*
+
 -- ---------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------
 
 
 -- ======= Tabla devices_cycle_usage_by_zone ===========
 
-insert into devices_cycle_usage_by_zone ( devices_details_id , zone_cycle,
+insert into devices_cycle_usage_by_zone ( device_details_id , device_usage_id ,zone_cycle,
 data_usage, data_usage_unit, voice_mtu_usage, voice_mtu_usage_unit,
 voice_mou_usage, voice_mou_usage_unit, sms_mtu_usage, sms_mou_usage
 , creation_date, update_date ) values
-(1 , ),
-(),
-();
+(1 , 1 , "default_zone", "4000", "4000", "14400", "14400", "18000"
+, "18000", "256", "567", @created_at, @updated_at),
+(2 , 2,   "default_zone", "6700", "6700", "18922", "18922", "21000"
+, "21000", "458", "876", @created_at, @updated_at),
+(3 , 3 , "local_zone", "2340", "2340", "5567", "5567", "7012"
+, "7012", "667", "889", @created_at, @updated_at),
+(4 , 4 , "local_zone", "1340", "3340", "6567", "7567", "9012"
+, "9012", "367", "489", @created_at, @updated_at),
+(5 , 5 , "default_zone", "4020", "4020", "14600", "14600", "21000"
+, "21000", "216", "547", @created_at, @updated_at),
+(6 , 6, "default_zone", "748", "748", "1230", "1230", "2234"
+, "2234", "112", "130", @created_at, @updated_at);
 
 
-/*
- * id bigint auto_increment PRIMARY KEY,
-devices_details_id bigint not null,
-zone_cycle varchar(255) not null,
-data_usage varchar(255) not null,
-data_usage_unit varchar(255) not null,
-voice_mtu_usage varchar(255) not null,
-voice_mtu_usage_unit varchar(255) not null,
-voice_mou_usage varchar(255) not null,
-voice_mou_usage_unit varchar(255) not null,
-sms_mtu_usage varchar(255) not null,
-sms_mou_usage varchar(255) not null,
-creation_date datetime not null,
-update_date datetime not null
-*/
+
+select * from devices_cycle_usage_by_zone;

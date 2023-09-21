@@ -14,6 +14,9 @@
 				"home": "mysql_client",
 				"type": "dev",
 				"auth-model": "native"
+			},
+			"custom-properties": {
+				"resultset.transform.complex.type": "false"
 			}
 		}
 	},
