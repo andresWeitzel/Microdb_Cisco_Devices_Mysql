@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="microdb_cisco_devices_DER">
+	<entities>
+		<data-source id="mysql8-189c2169118-7301c3b0835032c">
+			<entity id="1" name="devices" fq-name="microdb_cisco_devices.devices">
+				<path name="microdb_cisco_devices"/>
+			</entity>
+			<entity id="2" name="devices_audit_history" fq-name="microdb_cisco_devices.devices_audit_history">
+				<path name="microdb_cisco_devices"/>
+			</entity>
+			<entity id="3" name="devices_cycle_usage_by_zone" fq-name="microdb_cisco_devices.devices_cycle_usage_by_zone">
+				<path name="microdb_cisco_devices"/>
+			</entity>
+			<entity id="4" name="devices_details" fq-name="microdb_cisco_devices.devices_details">
+				<path name="microdb_cisco_devices"/>
+			</entity>
+			<entity id="5" name="devices_usage" fq-name="microdb_cisco_devices.devices_usage">
+				<path name="microdb_cisco_devices"/>
+			</entity>
+			<entity id="6" name="rate_plans" fq-name="microdb_cisco_devices.rate_plans">
+				<path name="microdb_cisco_devices"/>
+			</entity>
+		</data-source>
+	</entities>
+	<relations>
+		<relation name="FK_devices_details_device_id" fq-name="microdb_cisco_devices.devices_details.FK_devices_details_device_id" type="fk" pk-ref="1" fk-ref="4"/>
+		<relation name="FK_devices_audit_history_devices_details_id" fq-name="microdb_cisco_devices.devices_audit_history.FK_devices_audit_history_devices_details_id" type="fk" pk-ref="4" fk-ref="2"/>
+		<relation name="FK_devices_cycle_usage_by_zone_device_details_id" fq-name="microdb_cisco_devices.devices_cycle_usage_by_zone.FK_devices_cycle_usage_by_zone_device_details_id" type="fk" pk-ref="4" fk-ref="3"/>
+		<relation name="FK_device_usage_devices_details_id" fq-name="microdb_cisco_devices.devices_usage.FK_device_usage_devices_details_id" type="fk" pk-ref="4" fk-ref="5"/>
+		<relation name="FK_devices_cycle_usage_by_zone_device_usage_id" fq-name="microdb_cisco_devices.devices_cycle_usage_by_zone.FK_devices_cycle_usage_by_zone_device_usage_id" type="fk" pk-ref="5" fk-ref="3"/>
+		<relation name="FK_devices_rate_plan_id" fq-name="microdb_cisco_devices.devices.FK_devices_rate_plan_id" type="fk" pk-ref="6" fk-ref="1"/>
+	</relations>
+</diagram>
