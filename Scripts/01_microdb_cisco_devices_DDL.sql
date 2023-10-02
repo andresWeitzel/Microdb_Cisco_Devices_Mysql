@@ -103,13 +103,17 @@ alter table devices
 add constraint UNIQUE_devices_id
 unique(id);
 
+-- UNIQUE ICCID
+alter table devices 
+add constraint UNIQUE_devices_iccid
+unique(iccid);
+
 -- FK rate_plan_id
 alter table devices
 add constraint FK_devices_rate_plan_id
 foreign key(rate_plan_id)
 references rate_plans(id)
 on update cascade on delete cascade;
-
 
 -- CHECK UPDATE_DATE
 alter table devices
@@ -149,6 +153,31 @@ update_date datetime not null
 alter table devices_details 
 add constraint UNIQUE_devices_details_id
 unique(id);
+
+-- UNIQUE DEVICES_ID
+alter table devices_details 
+add constraint UNIQUE_devices_details_device_id
+unique(device_id);
+
+-- UNIQUE IMSI
+alter table devices_details 
+add constraint UNIQUE_devices_details_imsi
+unique(imsi);
+
+-- UNIQUE msisdn
+alter table devices_details 
+add constraint UNIQUE_devices_details_msisdn
+unique(msisdn);
+
+-- UNIQUE device_mac
+alter table devices_details 
+add constraint UNIQUE_devices_details_device_mac
+unique(device_mac);
+
+-- UNIQUE imei
+alter table devices_details 
+add constraint UNIQUE_devices_details_imei
+unique(imei);
 
 -- FK id_device
 alter table devices_details

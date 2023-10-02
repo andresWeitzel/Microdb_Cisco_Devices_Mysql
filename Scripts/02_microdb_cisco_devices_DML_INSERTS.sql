@@ -78,7 +78,7 @@ insert into devices (iccid, status, rate_plan_id, creation_date, update_date) va
 ('8830239482934882348', 'ACTIVATION_READY', 2, @created_at, @updated_at ),
 ('9928127278173287123', 'ACTIVATED', 3 , @created_at, @updated_at),
 ('2553623889812221298', 'REPLACED', 4 , @created_at, @updated_at),
-('9928127278173287123', 'TEST_READY', 5 , @created_at, @updated_at),
+('9928127278173283099', 'TEST_READY', 5 , @created_at, @updated_at),
 ('1298312381731727313', 'ACTIVATED', 6 , @created_at, @updated_at),
 ('5637705540155723682', 'DESACTIVATED', 6 , @created_at, @updated_at),
 ('8812931231231244444', 'ACTIVATION_READY', 3 , @created_at, @updated_at),
@@ -98,11 +98,11 @@ insert into devices_details(device_id, imsi, msisdn, imei, date_activated
 , @created_at, @updated_at),
 (2, '882193232829129', '222771273733128', '209291923231233', @today
 , @created_at, @updated_at, '192.168.0.1', '8291:9041:4337:c601:4542:b4sc:cd9c:8jt'
-, 'The device is activated, ready for its initial configuration', '00-A0-D0-72-A2-01'
+, 'The device is activated, ready for its initial configuration', '00-A0-KK-72-A2-02'
 , @created_at, @updated_at),
 (3, '992128882819291', '666251227162766', '129928128821982', @today
 , @created_at, @updated_at, '172.20.10.0', '9212:1192:2213:a60w:9029:b4sc:cd9c:4fg'
-, 'The device is activated, ready for its initial configuration', '00-A0-D0-72-A2-01'
+, 'The device is activated, ready for its initial configuration', '00-LO-D1-72-A2-23'
 , @created_at, @updated_at),
 (4, '127327271198812', '127883712631312', '826615223131233', @today
 , @created_at, @updated_at, '172.16.0.0', '3322:1234:2213:a60w:9029:b4sc:cd9c:9hj'
