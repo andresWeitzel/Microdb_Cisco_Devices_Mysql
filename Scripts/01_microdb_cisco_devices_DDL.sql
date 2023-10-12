@@ -201,7 +201,7 @@ check (update_date >= creation_date);
 create table devices_audit_history(
 	
 id bigint auto_increment primary key,
-devices_details_id bigint not null,
+device_details_id bigint not null,
 description varchar(255),-- The audit will be carried out to verify the configured software
 status enum('PENDING'
 , 'AUDITED'
@@ -221,10 +221,10 @@ alter table devices_audit_history
 add constraint UNIQUE_devices_audit_history_id
 unique(id);
 
--- FK devices_details_id
+-- FK device_details_id
 alter table devices_audit_history 
-add constraint FK_devices_audit_history_devices_details_id
-foreign key(devices_details_id)
+add constraint FK_devices_audit_history_device_details_id
+foreign key(device_details_id)
 references devices_details(id)
 on update cascade on delete cascade;
 
@@ -242,7 +242,7 @@ check (update_date >= creation_date);
 -- ---------------------------------------------------------------------------
 
 
--- ======= Tabla device_usage ===========
+-- ======= Tabla devices_usage ===========
 
 -- https://developer.cisco.com/docs/control-center/#!get-device-usage/response-example
 
@@ -250,7 +250,7 @@ check (update_date >= creation_date);
 CREATE TABLE devices_usage(
 
 id bigint auto_increment PRIMARY KEY,
-devices_details_id bigint not null,
+device_details_id bigint not null,
 ctd_data_usage int DEFAULT 0,
 ctd_sms_usage int DEFAULT 0,
 ctd_voice_usage int DEFAULT 0,
@@ -270,10 +270,10 @@ alter table devices_usage
 add constraint UNIQUE_device_usage_id
 unique(id);
 
--- FK devices_details_id
+-- FK device_details_id
 alter table devices_usage 
-add constraint FK_device_usage_devices_details_id
-foreign key(devices_details_id)
+add constraint FK_device_usage_device_details_id
+foreign key(device_details_id)
 references devices_details(id)
 on update cascade on delete cascade;
 

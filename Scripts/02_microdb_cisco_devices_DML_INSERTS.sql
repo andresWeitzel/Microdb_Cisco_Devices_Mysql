@@ -143,7 +143,7 @@ select * from devices_details;
 
 -- ======= Tabla devices_audit_history ===========
 
-insert into devices_audit_history (devices_details_id, description, status 
+insert into devices_audit_history (device_details_id, description, status 
 , notification_date, audit_date, creation_date, update_date ) values
 (1, 'The audit will be carried out to verify the configured software', 
 'PENDING', @today, @audit_at, @created_at, @updated_at),
@@ -175,7 +175,7 @@ select * from devices_audit_history;
 
 -- ======= Tabla devices_usage ===========
 
-INSERT INTO devices_usage ( devices_details_id, ctd_data_usage, ctd_sms_usage
+INSERT INTO devices_usage ( device_details_id, ctd_data_usage, ctd_sms_usage
 , ctd_voice_usage, ctd_session_count, overage_limit_reached, overage_limit_override
 , creation_date , update_date ) VALUES
 (1, 1034, 200, 4000, 10, 'FALSE', 'DEFAULT', @created_at, @updated_at),

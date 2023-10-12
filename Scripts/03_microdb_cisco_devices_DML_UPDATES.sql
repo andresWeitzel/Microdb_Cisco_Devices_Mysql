@@ -12,6 +12,7 @@ use microdb_cisco_devices;
 -- VARS
 SET @created_at = now();
 SET @updated_at = now();
+set @today = now();
 
 
 -- ---------------------------------------------------------------------------
@@ -128,3 +129,51 @@ set dev_det.fixed_ip_adress = '192.168.1.10'
 , dev_det.sim_notes = 'The device is activated, ready for its initial configuration. ips are updated'
 , dev_det.update_date = @updated_at
 where dev_det.device_mac = '00-A0-K9-72-G3-21';
+
+
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
+
+
+-- ======= Tabla devices_audit_history ===========
+
+select * from devices_audit_history;
+describe devices_audit_history ;
+
+
+-- update all fields according to the device_details_id
+update devices_audit_history as dev_aud_his
+inner join devices_details as dev_det
+on dev_det.id = dev_aud_his.device_details_id
+set dev_aud_his.description  = 'The audit has been carried out successfully'
+, dev_aud_his.status = 'AUDITED'
+, dev_aud_his.notification_date = @today
+, dev_aud_his.audit_date = @today
+, dev_aud_his.creation_date = @created_at
+, dev_aud_his.update_date = @updated_at
+where dev_aud_his.device_details_id  = 1;
+
+
+
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
+
+
+-- ======= Tabla devices_usage ===========
+
+select * from devices_usage;
+describe devices_usage ;
+
+-- update ctd fields according to the device_details_id
+update devices_usage as dev_us
+inner join devices_details as dev_det
+on dev_det.id = dev_us.device_details_id
+set dev_us.ctd_data_usage = ctd_data_usage + 550
+, dev_us.ctd_sms_usage = ctd_sms_usage + 50
+, dev_us.ctd_voice_usage = ctd_voice_usage + 1200
+, dev_us.ctd_session_count = ctd_session_count + 23
+, dev_us.update_date = @updated_at
+where dev_us.device_details_id  = 1;
+
+
+-- update overage fields according to the id
