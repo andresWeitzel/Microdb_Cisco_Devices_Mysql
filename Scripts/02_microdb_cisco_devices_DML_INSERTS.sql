@@ -43,6 +43,8 @@ set @audit_at = now() + interval 3 month;
 
 -- ======= Tabla rate_plans ===========
 
+select * from rate_plans;
+
 insert into rate_plans (name, description, version_id
 , version_plan, status, type_plan, subscription_charge
 , number_of_tiers, creation_date, update_date) values 
@@ -65,13 +67,14 @@ insert into rate_plans (name, description, version_id
 ('IOU-90','plan every three months, up to 7 people',777245,'2.6','Inactive'
 ,'quarterly plan, up to 7 people', 3.99, 4, @created_at, @updated_at);
 
-select * from rate_plans;
 
 -- ---------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------
 
 
 -- ======= Tabla devices ===========
+
+select * from devices;
 
 insert into devices (iccid, status, rate_plan_id, creation_date, update_date) values
 ('8988216716970004971', 'ACTIVATED', 1, @created_at, @updated_at ),
@@ -86,7 +89,14 @@ insert into devices (iccid, status, rate_plan_id, creation_date, update_date) va
 ('5553476230102909312', 'RETIRED', 1 , @created_at, @updated_at);
 
 
-select * from devices;
+
+-- ---------------------------------------------------------------------------
+-- ---------------------------------------------------------------------------
+
+
+-- ======= Tabla devices_details ===========
+
+select * from devices_details;
 
 
 insert into devices_details(device_id, imsi, msisdn, imei, date_activated
@@ -133,8 +143,6 @@ insert into devices_details(device_id, imsi, msisdn, imei, date_activated
 , 'The device has been removed and is out of service due to a connection board failure'
 , 'P9-12-AR-09-G3-56', @created_at, @updated_at);
 
-select * from devices_details;
-
 
 
 -- ---------------------------------------------------------------------------
@@ -142,6 +150,10 @@ select * from devices_details;
 
 
 -- ======= Tabla devices_audit_history ===========
+
+
+select * from devices_audit_history;
+
 
 insert into devices_audit_history (device_details_id, description, status 
 , notification_date, audit_date, creation_date, update_date ) values
@@ -166,14 +178,15 @@ insert into devices_audit_history (device_details_id, description, status
 (10, 'The new installed version will be analyzed', 
 'PENDING', @today, @audit_at, @created_at, @updated_at);
 
-select * from devices_audit_history;
-
 
 -- ---------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------
 
 
 -- ======= Tabla devices_usage ===========
+
+select * from devices_usage;
+
 
 INSERT INTO devices_usage ( device_details_id, ctd_data_usage, ctd_sms_usage
 , ctd_voice_usage, ctd_session_count, overage_limit_reached, overage_limit_override
@@ -195,15 +208,14 @@ INSERT INTO devices_usage ( device_details_id, ctd_data_usage, ctd_sms_usage
 
 
 
-select * from devices_usage;
-
-
-
 -- ---------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------
 
 
 -- ======= Tabla devices_cycle_usage_by_zone ===========
+
+
+select * from devices_cycle_usage_by_zone;
 
 insert into devices_cycle_usage_by_zone ( device_details_id , device_usage_id ,zone_cycle,
 data_usage, data_usage_unit, voice_mtu_usage, voice_mtu_usage_unit,
@@ -224,4 +236,3 @@ voice_mou_usage, voice_mou_usage_unit, sms_mtu_usage, sms_mou_usage
 
 
 
-select * from devices_cycle_usage_by_zone;
